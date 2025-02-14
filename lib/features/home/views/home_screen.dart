@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../generated/l10n.dart';
 import '../../auth/viewmodels/auth_view_model.dart';
 import '../widgets/animated_menu_card.dart';
 import '../widgets/profile_avatar.dart';
@@ -78,21 +79,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   mainAxisSpacing: 20,
                   children: [
                     AnimatedMenuCard(
-                      title: 'تسجيل البيانات',
+                      title: S.of(context).registerData,
                       icon: Icons.app_registration,
                       onTap: () {},
                       animation: _controller,
                       delay: _randomDelays[0],
                     ),
                     AnimatedMenuCard(
-                      title: 'كود اختبار الطفل',
+                      title: S.of(context).childTestCode,
                       icon: Icons.child_care,
                       onTap: () {},
                       animation: _controller,
                       delay: _randomDelays[1],
                     ),
                     AnimatedMenuCard(
-                      title: 'التقارير',
+                      title: S.of(context).reports,
                       icon: Icons.assessment,
                       onTap: () {},
                       animation: _controller,
@@ -107,6 +108,4 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       ),
     );
   }
-
 }
-

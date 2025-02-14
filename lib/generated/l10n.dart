@@ -49,6 +49,156 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Stanford Binet`
+  String get appTitle {
+    return Intl.message(
+      'Stanford Binet',
+      name: 'appTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stanford-Binet IQ Test`
+  String get loginTitle {
+    return Intl.message(
+      'Stanford-Binet IQ Test',
+      name: 'loginTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Easy Access for Professionals`
+  String get loginSubtitle {
+    return Intl.message(
+      'Easy Access for Professionals',
+      name: 'loginSubtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get emailLabel {
+    return Intl.message(
+      'Email',
+      name: 'emailLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get passwordLabel {
+    return Intl.message(
+      'Password',
+      name: 'passwordLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email`
+  String get emailValidationMessage {
+    return Intl.message(
+      'Please enter your email',
+      name: 'emailValidationMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your password`
+  String get passwordValidationMessage {
+    return Intl.message(
+      'Please enter your password',
+      name: 'passwordValidationMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get loginButtonText {
+    return Intl.message(
+      'Login',
+      name: 'loginButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password?`
+  String get forgotPasswordText {
+    return Intl.message(
+      'Forgot Password?',
+      name: 'forgotPasswordText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email address`
+  String get enterEmailMessage {
+    return Intl.message(
+      'Please enter your email address',
+      name: 'enterEmailMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reset email sent. Please check your inbox.`
+  String get passwordResetSentMessage {
+    return Intl.message(
+      'Password reset email sent. Please check your inbox.',
+      name: 'passwordResetSentMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error: {error}`
+  String errorMessage(String error) {
+    return Intl.message(
+      'Error: $error',
+      name: 'errorMessage',
+      desc: '',
+      args: [error],
+    );
+  }
+
+  /// `Register Data`
+  String get registerData {
+    return Intl.message(
+      'Register Data',
+      name: 'registerData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Child Test Code`
+  String get childTestCode {
+    return Intl.message(
+      'Child Test Code',
+      name: 'childTestCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reports`
+  String get reports {
+    return Intl.message(
+      'Reports',
+      name: 'reports',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

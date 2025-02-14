@@ -20,6 +20,28 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar_EG';
 
+  static String m0(error) => "خطأ: ${error}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{};
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "appTitle": MessageLookupByLibrary.simpleMessage("ستانفورد بينيه"),
+        "emailLabel": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+        "emailValidationMessage": MessageLookupByLibrary.simpleMessage(
+            "الرجاء إدخال البريد الإلكتروني"),
+        "enterEmailMessage": MessageLookupByLibrary.simpleMessage(
+            "الرجاء إدخال عنوان بريدك الإلكتروني"),
+        "errorMessage": m0,
+        "forgotPasswordText":
+            MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
+        "loginButtonText": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+        "loginSubtitle":
+            MessageLookupByLibrary.simpleMessage("وصول سهل للمتخصصين"),
+        "loginTitle": MessageLookupByLibrary.simpleMessage(
+            "اختبار ستانفورد-بينيه للذكاء"),
+        "passwordLabel": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+        "passwordResetSentMessage": MessageLookupByLibrary.simpleMessage(
+            "تم إرسال رابط إعادة تعيين كلمة المرور. يرجى التحقق من بريدك الإلكتروني."),
+        "passwordValidationMessage":
+            MessageLookupByLibrary.simpleMessage("الرجاء إدخال كلمة المرور")
+      };
 }

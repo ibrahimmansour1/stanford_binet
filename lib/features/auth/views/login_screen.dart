@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stanford_binet/core/helpers/app_router.dart';
 
 import '../viewmodels/auth_view_model.dart';
+import '../../../generated/l10n.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -37,8 +38,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _handleResetPassword() async {
     if (_emailController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter your email address'),
+        SnackBar(
+          content: Text(S.of(context).enterEmailMessage),
         ),
       );
       return;
@@ -92,7 +93,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Stanford-Binet IQ Test',
+                        S.of(context).loginTitle,
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   color: Theme.of(context).colorScheme.primary,
@@ -102,7 +103,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Easy Access for Professionals',
+                        S.of(context).loginSubtitle,
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w500,
@@ -113,7 +114,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
-                          labelText: 'Email',
+                          labelText: S.of(context).emailLabel,
                           prefixIcon: Icon(Icons.email_outlined,
                               color: Colors.blue.shade300),
                           border: OutlineInputBorder(
@@ -133,7 +134,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            return S.of(context).emailValidationMessage;
                           }
                           return null;
                         },
@@ -142,7 +143,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
-                          labelText: 'Password',
+                          labelText: S.of(context).passwordLabel,
                           prefixIcon: Icon(Icons.lock_outline,
                               color: Colors.blue.shade300),
                           suffixIcon: IconButton(

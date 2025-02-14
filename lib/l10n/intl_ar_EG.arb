@@ -1,1 +1,22 @@
-{}
+{
+    "@@locale": "ar_EG",
+    "appTitle": "ستانفورد بينيه",
+    "loginTitle": "اختبار ستانفورد-بينيه للذكاء",
+    "loginSubtitle": "وصول سهل للمتخصصين",
+    "emailLabel": "البريد الإلكتروني",
+    "passwordLabel": "كلمة المرور",
+    "emailValidationMessage": "الرجاء إدخال البريد الإلكتروني",
+    "passwordValidationMessage": "الرجاء إدخال كلمة المرور",
+    "loginButtonText": "تسجيل الدخول",
+    "forgotPasswordText": "نسيت كلمة المرور؟",
+    "enterEmailMessage": "الرجاء إدخال عنوان بريدك الإلكتروني",
+    "passwordResetSentMessage": "تم إرسال رابط إعادة تعيين كلمة المرور. يرجى التحقق من بريدك الإلكتروني.",
+    "errorMessage": "خطأ: {error}",
+    "@errorMessage": {
+      "placeholders": {
+        "error": {
+          "type": "String"
+        }
+      }
+    }
+}

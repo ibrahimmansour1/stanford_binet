@@ -1,1 +1,25 @@
-{}
+{
+  "@@locale": "en",
+  "appTitle": "Stanford Binet",
+  "loginTitle": "Stanford-Binet IQ Test",
+  "loginSubtitle": "Easy Access for Professionals",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "emailValidationMessage": "Please enter your email",
+  "passwordValidationMessage": "Please enter your password",
+  "loginButtonText": "Login",
+  "forgotPasswordText": "Forgot Password?",
+  "enterEmailMessage": "Please enter your email address",
+  "passwordResetSentMessage": "Password reset email sent. Please check your inbox.",
+  "errorMessage": "Error: {error}",
+  "@errorMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "registerData": "Register Data",
+  "childTestCode": "Child Test Code",
+  "reports": "Reports"
+}
