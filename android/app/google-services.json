@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "101060568384",
+    "project_id": "stanfordapp-15a49",
+    "storage_bucket": "stanfordapp-15a49.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101060568384:android:e90c86ab367c044b0746a5",
+        "android_client_info": {
+          "package_name": "com.example.stanford_binet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIiQn6EHO-dYnvkxm2XNVKe6nM0MuvqVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

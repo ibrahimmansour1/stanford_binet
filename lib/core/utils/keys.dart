@@ -1,0 +1,3 @@
+const String kSupabaseUrl = 'https://srhybozjasxdfypenqwj.supabase.co';
+const String kSupabaseKey =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyaHlib3pqYXN4ZGZ5cGVucXdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1NjIzODcsImV4cCI6MjA1NDEzODM4N30.XLv3iMGy_PJ-zngSyCJyVTGE74ROv1CvbF2Cpxj_qqw';
