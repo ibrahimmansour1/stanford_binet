@@ -9,8 +9,10 @@ class AppColors {
   static const Color error = Colors.red;
 
   // Opacity Colors
-  static Color primaryWithOpacity(double opacity) => primary.withOpacity(opacity);
-  static Color onSurfaceWithOpacity(double opacity) => onSurface.withOpacity(opacity);
+  static Color primaryWithOpacity(double opacity) =>
+      primary.withOpacity(opacity);
+  static Color onSurfaceWithOpacity(double opacity) =>
+      onSurface.withOpacity(opacity);
 
   // Gradients
   static List<Color> cardGradient(BuildContext context) => [
