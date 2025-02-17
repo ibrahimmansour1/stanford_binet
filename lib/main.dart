@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      title: S.of(context).appTitle,
+      title: "Stanford Benit",
       theme: ThemeData(
         colorScheme: ColorScheme(
           brightness: Brightness.light,

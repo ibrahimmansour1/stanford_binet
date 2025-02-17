@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stanford_binet/core/helpers/app_router.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../generated/l10n.dart';
@@ -81,21 +82,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                     AnimatedMenuCard(
                       title: S.of(context).registerData,
                       icon: Icons.app_registration,
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRoutes.registerDataView),
                       animation: _controller,
                       delay: _randomDelays[0],
                     ),
                     AnimatedMenuCard(
                       title: S.of(context).childTestCode,
                       icon: Icons.child_care,
-                      onTap: () {},
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRoutes.teacherSessionCodeEntryScreen),
                       animation: _controller,
                       delay: _randomDelays[1],
                     ),
                     AnimatedMenuCard(
                       title: S.of(context).reports,
                       icon: Icons.assessment,
-                      onTap: () {},
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRoutes.reportsView),
                       animation: _controller,
                       delay: _randomDelays[2],
                     ),

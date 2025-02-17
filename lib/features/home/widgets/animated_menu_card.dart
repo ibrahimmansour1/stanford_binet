@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/theme/app_colors.dart';
 
 class AnimatedMenuCard extends StatelessWidget {
@@ -24,7 +25,8 @@ class AnimatedMenuCard extends StatelessWidget {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
-        final progress = ((animation.value - delay) / (1 - delay)).clamp(0.0, 1.0);
+        final progress =
+            ((animation.value - delay) / (1 - delay)).clamp(0.0, 1.0);
         final opacity = Curves.easeOut.transform(progress).clamp(0.0, 1.0);
         final slide = Curves.easeOutBack.transform(progress);
 

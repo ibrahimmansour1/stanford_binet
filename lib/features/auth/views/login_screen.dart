@@ -244,8 +244,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       const SizedBox(height: 16),
                       OutlinedButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, AppRoutes.initial),
+                        onPressed: () => Navigator.pushNamed(
+                            context, AppRoutes.childHomeView),
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(color: Colors.blue),
                           padding: const EdgeInsets.symmetric(vertical: 16),
