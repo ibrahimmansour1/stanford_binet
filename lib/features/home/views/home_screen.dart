@@ -74,14 +74,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
+              Flexible(
                 child: GridView.count(
                   crossAxisCount: 1,
-                  mainAxisSpacing: 20,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 1.5,
                   children: [
                     AnimatedMenuCard(
                       title: S.of(context).registerData,
-                      icon: Icons.app_registration,
+                      imagePath: 'assets/images/register.png',
                       onTap: () => Navigator.pushNamed(
                           context, AppRoutes.registerDataView),
                       animation: _controller,
@@ -89,7 +90,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                     ),
                     AnimatedMenuCard(
                       title: S.of(context).childTestCode,
-                      icon: Icons.child_care,
+                      imagePath: 'assets/images/exam.png',
                       onTap: () => Navigator.pushNamed(
                           context, AppRoutes.teacherSessionCodeEntryScreen),
                       animation: _controller,
@@ -97,7 +98,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                     ),
                     AnimatedMenuCard(
                       title: S.of(context).reports,
-                      icon: Icons.assessment,
+                      imagePath: 'assets/images/reports.png',
                       onTap: () =>
                           Navigator.pushNamed(context, AppRoutes.reportsView),
                       animation: _controller,

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/helpers/app_router.dart';
 import 'features/auth/viewmodels/auth_view_model.dart';
@@ -25,36 +26,43 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authViewModelProvider);
 
-    return MaterialApp(
-      localizationsDelegates: [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      title: "Stanford Benit",
-      theme: ThemeData(
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: Colors.blue,
-          onPrimary: Colors.white,
-          secondary: Colors.blueAccent,
-          onSecondary: Colors.white,
-          error: Colors.red,
-          onError: Colors.white,
-          surface: Colors.white,
-          onSurface: Colors.black,
-        ),
-        useMaterial3: true,
-      ),
-      onGenerateRoute: onGenerateRoute,
-      initialRoute: AppRoutes.initial,
-      home: authState.when(
-        data: (user) => user != null ? const HomeScreen() : const LoginScreen(),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error: $error')),
-      ),
-    );
+    return ScreenUtilInit(
+        designSize: const Size(440, 956),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, child) {
+          return MaterialApp(
+            localizationsDelegates: [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            title: "Stanford Benit",
+            theme: ThemeData(
+              colorScheme: ColorScheme(
+                brightness: Brightness.light,
+                primary: Colors.blue,
+                onPrimary: Colors.white,
+                secondary: Colors.blueAccent,
+                onSecondary: Colors.white,
+                error: Colors.red,
+                onError: Colors.white,
+                surface: Colors.white,
+                onSurface: Colors.black,
+              ),
+              useMaterial3: true,
+            ),
+            onGenerateRoute: onGenerateRoute,
+            initialRoute: AppRoutes.initial,
+            home: authState.when(
+              data: (user) =>
+                  user != null ? const HomeScreen() : const LoginScreen(),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, stack) => Center(child: Text('Error: $error')),
+            ),
+          );
+        });
   }
 }

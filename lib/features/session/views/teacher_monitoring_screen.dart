@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TeacherMonitoringScreen extends StatefulWidget {
   final String sessionCode;
@@ -184,105 +185,225 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
   @override
   Widget build(BuildContext context) {
     if (_questions.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
+      return const Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text('Loading exam data...'),
+            ],
+          ),
+        ),
+      );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Monitor Exam'),
+        title: Text(
+          'Monitor Exam',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        centerTitle: true,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildProgressIndicator(),
+              const SizedBox(height: 32),
+              _buildQuestionCard(),
+              const SizedBox(height: 24),
+              _buildGradeButtons(),
+              const Spacer(),
+              _buildNavigationButtons(),
+              const SizedBox(height: 16),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Text(
+            'Question ${_currentQuestionIndex + 1}/${_questions.length}',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: (_currentQuestionIndex + 1) / _questions.length,
+              backgroundColor: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuestionCard() {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Question ${_currentQuestionIndex + 1}: ${_questions[_currentQuestionIndex]}',
-              style: const TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Student Answer: ${_studentAnswers[_currentQuestionIndex] ?? 'Not answered yet'}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [0, 1, 2].map((grade) {
-                final isSelected = _grades[_currentQuestionIndex] == grade;
-                return Container(
-                  width: 80,
-                  height: 80,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  child: ElevatedButton(
-                    onPressed: () => _saveGrade(_currentQuestionIndex, grade),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: isSelected
-                          ? Theme.of(context).primaryColor
-                          : Colors.grey[200],
-                      foregroundColor:
-                          isSelected ? Colors.white : Colors.black87,
-                      padding: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        side: BorderSide(
-                          color: isSelected
-                              ? Theme.of(context).primaryColor
-                              : Colors.grey[400]!,
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '$grade',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          grade == 0
-                              ? 'Wrong'
-                              : grade == 1
-                                  ? 'Partial'
-                                  : 'Correct',
-                          style: const TextStyle(
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
+              'Question:',
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Colors.grey[600],
                   ),
-                );
-              }).toList(),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              _questions[_currentQuestionIndex],
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    height: 1.5,
+                  ),
             ),
             const SizedBox(height: 24),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: _currentQuestionIndex > 0
-                      ? () =>
-                          _updateCurrentQuestionIndex(_currentQuestionIndex - 1)
-                      : null,
-                  child: const Text('Previous'),
-                ),
-                ElevatedButton(
-                  onPressed: _currentQuestionIndex < _questions.length - 1
-                      ? () =>
-                          _updateCurrentQuestionIndex(_currentQuestionIndex + 1)
-                      : null,
-                  child: const Text('Next'),
-                ),
-              ],
+            Text(
+              'Student Answer:',
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Colors.grey[600],
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey[300]!),
+              ),
+              child: Text(
+                _studentAnswers[_currentQuestionIndex] ?? 'Not answered yet',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildGradeButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [0, 1, 2].map((grade) {
+        final isSelected = _grades[_currentQuestionIndex] == grade;
+        final gradeColor = grade == 2
+            ? Colors.green
+            : grade == 1
+                ? Colors.orange
+                : Colors.red;
+
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          width: 105.w,
+          height: 105.h,
+          margin: const EdgeInsets.symmetric(horizontal: 8),
+          child: ElevatedButton(
+            onPressed: () => _saveGrade(_currentQuestionIndex, grade),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: isSelected ? gradeColor : Colors.white,
+              foregroundColor: isSelected ? Colors.white : gradeColor,
+              elevation: isSelected ? 8 : 2,
+              padding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(
+                  color: gradeColor,
+                  width: 2,
+                ),
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 24.r,
+                  backgroundColor: gradeColor,
+                  child: Icon(
+                    grade == 2
+                        ? Icons.check_rounded
+                        : grade == 1
+                            ? Icons.remove_rounded
+                            : Icons.cancel_rounded,
+                    size: 32,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  grade == 0
+                      ? 'Wrong'
+                      : grade == 1
+                          ? 'Partial'
+                          : 'Correct',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight:
+                        isSelected ? FontWeight.bold : FontWeight.normal,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildNavigationButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: ElevatedButton.icon(
+            onPressed: _currentQuestionIndex > 0
+                ? () => _updateCurrentQuestionIndex(_currentQuestionIndex - 1)
+                : null,
+            icon: const Icon(Icons.arrow_back),
+            label: const Text('Previous'),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: ElevatedButton.icon(
+            onPressed: _currentQuestionIndex < _questions.length - 1
+                ? () => _updateCurrentQuestionIndex(_currentQuestionIndex + 1)
+                : null,
+            icon: const Icon(Icons.arrow_forward),
+            label: const Text('Next'),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

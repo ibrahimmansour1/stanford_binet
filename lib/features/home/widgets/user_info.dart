@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,21 +13,31 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  String? _userName;
-  void _loadFirebaseUserName() {
-    _userName = FirebaseAuth.instance.currentUser?.displayName;
-    _userName ??= FirebaseAuth.instance.currentUser?.email!.split('@').first;
-    if (_userName != null && _userName!.isNotEmpty) {
-      _userName = _userName![0].toUpperCase() + _userName!.substring(1);
-    }
-
-    return;
-  }
+  String _userName = 'Specialist';
 
   @override
   void initState() {
-    _loadFirebaseUserName();
     super.initState();
+    _loadFirebaseUserName();
+  }
+
+  Future<void> _loadFirebaseUserName() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        String? name = user.displayName;
+        name ??= user.email?.split('@').first;
+        log('User name: $name');
+
+        if (name != null && name.isNotEmpty) {
+          setState(() {
+            _userName = name![0].toUpperCase() + name.substring(1);
+          });
+        }
+      }
+    } catch (e) {
+      log('Error loading user name: $e');
+    }
   }
 
   @override

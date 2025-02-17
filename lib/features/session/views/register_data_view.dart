@@ -290,7 +290,7 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () => _saveDataToFirebase(context),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),

@@ -1,6 +1,11 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/theme/app_colors.dart';
 import 'teacher_monitoring_screen.dart';
 
 class TeacherSessionCodeEntryScreen extends StatefulWidget {
@@ -12,21 +17,42 @@ class TeacherSessionCodeEntryScreen extends StatefulWidget {
 }
 
 class _TeacherSessionCodeEntryScreenState
-    extends State<TeacherSessionCodeEntryScreen> {
+    extends State<TeacherSessionCodeEntryScreen>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _sessionCodeController = TextEditingController();
+  late AnimationController _shakeController;
   String? _errorMessage;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _shakeController = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+  }
+
+  @override
+  void dispose() {
+    _shakeController.dispose();
+    _sessionCodeController.dispose();
+    super.dispose();
+  }
 
   Future<void> _validateSessionCode(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
     final sessionCode = _sessionCodeController.text.trim();
     if (sessionCode.isEmpty || sessionCode.length != 6) {
-      setState(() {
-        _errorMessage = 'Please enter a valid 6-digit session code.';
-      });
+      _showError('Please enter a valid 6-digit session code.');
       return;
     }
 
     try {
-      // Check if the session code exists in Firestore
       final sessionSnapshot = await FirebaseFirestore.instance
           .collection('sessions')
           .where('session_code', isEqualTo: sessionCode)
@@ -34,61 +60,125 @@ class _TeacherSessionCodeEntryScreenState
           .get();
 
       if (sessionSnapshot.docs.isEmpty) {
-        setState(() {
-          _errorMessage = 'Invalid session code. Please try again.';
-        });
+        _showError('Invalid session code. Please try again.');
         return;
       }
 
-      // Navigate to the teacher monitoring screen if the session code is valid
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              TeacherMonitoringScreen(sessionCode: sessionCode),
-        ),
-      );
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                TeacherMonitoringScreen(sessionCode: sessionCode),
+          ),
+        );
+      }
     } catch (e) {
-      setState(() {
-        _errorMessage = 'Error validating session code. Please try again.';
-      });
+      _showError('Error validating session code. Please try again.');
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
+  }
+
+  void _showError(String message) {
+    setState(() {
+      _errorMessage = message;
+      _isLoading = false;
+    });
+    _shakeController.forward(from: 0.0);
+    HapticFeedback.mediumImpact();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Enter Session Code'),
+        title: Text(
+          'Enter Session Code',
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _sessionCodeController,
-              keyboardType: TextInputType.number,
-              maxLength: 6,
-              decoration: const InputDecoration(
-                labelText: 'Session Code',
-                prefixIcon: Icon(Icons.lock),
-              ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => _validateSessionCode(context),
-              child: const Text('Monitor Exam'),
-            ),
-            if (_errorMessage != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text(
-                  _errorMessage!,
-                  style: const TextStyle(color: Colors.red),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(24.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Spacer(),
+              AnimatedBuilder(
+                animation: _shakeController,
+                builder: (context, child) {
+                  final sineValue = sin(4 * pi * _shakeController.value);
+                  return Transform.translate(
+                    offset: Offset(sineValue * 10, 0),
+                    child: child,
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: theme.cardColor,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primaryShadow.withOpacity(0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.all(24.w),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.key_rounded,
+                        size: 48.w,
+                        color: AppColors.primary,
+                      ),
+                      SizedBox(height: 24.h),
+                      TextField(
+                        controller: _sessionCodeController,
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headlineSmall,
+                        decoration: InputDecoration(
+                          labelText: 'Session Code',
+                          errorText: _errorMessage,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-          ],
+              SizedBox(height: 32.h),
+              FilledButton(
+                onPressed:
+                    _isLoading ? null : () => _validateSessionCode(context),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: _isLoading
+                    ? const CircularProgressIndicator()
+                    : const Text('Monitor Exam'),
+              ),
+              const Spacer(flex: 2),
+            ],
+          ),
         ),
       ),
     );
