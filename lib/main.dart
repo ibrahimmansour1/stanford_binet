@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
 import 'core/helpers/app_router.dart';
 import 'features/auth/viewmodels/auth_view_model.dart';
@@ -56,10 +57,13 @@ class MyApp extends ConsumerWidget {
             ),
             onGenerateRoute: onGenerateRoute,
             initialRoute: AppRoutes.initial,
+            debugShowCheckedModeBanner: false,
             home: authState.when(
               data: (user) =>
                   user != null ? const HomeScreen() : const LoginScreen(),
-              loading: () => const Center(child: CircularProgressIndicator()),
+              loading: () => const Scaffold(
+                body: CustomLoader(),
+              ),
               error: (error, stack) => Center(child: Text('Error: $error')),
             ),
           );

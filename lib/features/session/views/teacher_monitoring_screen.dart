@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
 class TeacherMonitoringScreen extends StatefulWidget {
   final String sessionCode;
@@ -190,7 +191,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(),
+              CustomLoader(),
               SizedBox(height: 16),
               Text('Loading exam data...'),
             ],

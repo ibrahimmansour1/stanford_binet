@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
 import '../../../core/theme/app_colors.dart';
 import 'session_report_view.dart';
@@ -78,7 +79,7 @@ class _ReportsViewState extends State<ReportsView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CircularProgressIndicator(),
+          CustomLoader(),
           SizedBox(height: 16.h),
           Text(
             'Loading reports...',

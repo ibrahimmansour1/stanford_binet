@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
 class StudentExamScreen extends StatefulWidget {
   final String sessionCode;
@@ -152,7 +153,7 @@ class _StudentExamScreenState extends State<StudentExamScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  CircularProgressIndicator(),
+                  CustomLoader(),
                   SizedBox(height: 16),
                   Text('Loading questions...'),
                 ],

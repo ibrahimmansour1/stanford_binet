@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stanford_binet/core/helpers/app_router.dart';
 
-import '../viewmodels/auth_view_model.dart';
 import '../../../generated/l10n.dart';
+import '../viewmodels/auth_view_model.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -28,10 +28,48 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Future<void> _handleLogin() async {
     if (_formKey.currentState?.validate() ?? false) {
-      await ref.read(authViewModelProvider.notifier).signIn(
-            _emailController.text,
-            _passwordController.text,
-          );
+      try {
+        await ref.read(authViewModelProvider.notifier).signIn(
+              _emailController.text,
+              _passwordController.text,
+            );
+      } catch (e) {
+        if (!mounted) return;
+
+        String errorMessage = 'An error occurred during login';
+
+        if (e.toString().contains('user-not-found')) {
+          errorMessage = 'No user found with this email';
+        } else if (e.toString().contains('wrong-password')) {
+          errorMessage = 'Incorrect password';
+        } else if (e.toString().contains('invalid-email')) {
+          errorMessage = 'Invalid email format';
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Icon(Icons.error_outline, color: Colors.white),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(errorMessage),
+                ),
+              ],
+            ),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.red.shade700,
+            duration: const Duration(seconds: 3),
+            action: SnackBarAction(
+              label: 'Dismiss',
+              textColor: Colors.white,
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
+          ),
+        );
+      }
     }
   }
 
@@ -258,36 +296,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
-                      if (authState.hasError) ...[
-                        const SizedBox(height: 16),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.errorContainer,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.error_outline,
-                                size: 20,
-                                color: Theme.of(context).colorScheme.error,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  authState.error.toString(),
-                                  style: TextStyle(
-                                    color: Theme.of(context).colorScheme.error,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
                     ],
                   ),
                 ),

@@ -68,6 +68,17 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
 
   Future<void> _saveDataToFirebase(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
+      // Add required fields validation
+      if (_gender == null || _examKind == null || _dateOfBirth == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please fill in all required fields'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
       try {
         // Generate a unique session code
         final Random random = Random();
@@ -164,6 +175,7 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
                           controller: _nameController,
                           label: 'Name',
                           prefixIcon: Icons.person,
+                          isRequired: true, // Make name required
                         ),
                         const SizedBox(height: 16),
                         _buildDatePicker(
@@ -171,6 +183,7 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
                           value: _dateOfBirth,
                           onTap: () => _selectDate(context),
                           label: 'Date of Birth',
+                          isRequired: true, // Make age (date of birth) required
                         ),
                         const SizedBox(height: 16),
                         _buildDropdown(
@@ -179,6 +192,7 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
                           onChanged: (value) => setState(() => _gender = value),
                           label: 'Gender',
                           prefixIcon: Icons.people,
+                          isRequired: true, // Make gender required
                         ),
                         const SizedBox(height: 16),
                         _buildTextField(
@@ -257,7 +271,13 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
                         const SizedBox(height: 16),
                         ListTile(
                           leading: const Icon(Icons.volume_up),
-                          title: const Text('Speaker Enabled'),
+                          title: Row(
+                            children: [
+                              const Text('Speaker Enabled'),
+                              const Text(' *',
+                                  style: TextStyle(color: Colors.red)),
+                            ],
+                          ),
                           trailing: Switch(
                             value: _isSpeakerEnabled,
                             onChanged: (value) =>
@@ -284,6 +304,7 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
                               setState(() => _examKind = value),
                           label: 'Exam Kind',
                           prefixIcon: Icons.assignment,
+                          isRequired: true, // Make exam kind required
                         ),
                       ],
                     ),
@@ -316,18 +337,20 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
     required String label,
     required IconData prefixIcon,
     TextInputType? keyboardType,
+    bool isRequired = false,
   }) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: isRequired ? '$label *' : label,
         prefixIcon: Icon(prefixIcon),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
       ),
       keyboardType: keyboardType,
-      validator: (value) => value!.isEmpty ? 'Please enter $label' : null,
+      validator: (value) =>
+          isRequired && (value?.isEmpty ?? true) ? 'Please enter $label' : null,
     );
   }
 
@@ -337,6 +360,7 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
     required Function(String?) onChanged,
     required String label,
     required IconData prefixIcon,
+    bool isRequired = false,
   }) {
     return DropdownButtonFormField<String>(
       value: value,
@@ -344,13 +368,14 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
           items.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
       onChanged: onChanged,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: isRequired ? '$label *' : label,
         prefixIcon: Icon(prefixIcon),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      validator: (value) => value == null ? 'Please select $label' : null,
+      validator: (value) =>
+          isRequired && value == null ? 'Please select $label' : null,
     );
   }
 
@@ -359,23 +384,31 @@ class _RegisterDataViewState extends ConsumerState<RegisterDataView> {
     required DateTime? value,
     required VoidCallback onTap,
     required String label,
+    bool isRequired = false,
   }) {
-    return InkWell(
-      onTap: onTap,
-      child: InputDecorator(
-        decoration: InputDecoration(
-          labelText: label,
-          prefixIcon: const Icon(Icons.calendar_today),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
+    return FormField<DateTime>(
+      validator: (value) =>
+          isRequired && value == null ? 'Please select $label' : null,
+      builder: (FormFieldState<DateTime> state) {
+        return InkWell(
+          onTap: onTap,
+          child: InputDecorator(
+            decoration: InputDecoration(
+              labelText: isRequired ? '$label *' : label,
+              prefixIcon: const Icon(Icons.calendar_today),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              errorText: state.errorText,
+            ),
+            child: Text(
+              value == null
+                  ? 'Select $label'
+                  : value.toLocal().toString().substring(0, 10),
+            ),
           ),
-        ),
-        child: Text(
-          value == null
-              ? 'Select $label'
-              : value.toLocal().toString().substring(0, 10),
-        ),
-      ),
+        );
+      },
     );
   }
 }
