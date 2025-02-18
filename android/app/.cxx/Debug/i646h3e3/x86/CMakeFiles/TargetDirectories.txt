@@ -1,0 +1,2 @@
+C:/Users/Eng. Ibrahim Mansour/Documents/stanford_binet/android/app/.cxx/Debug/i646h3e3/x86/CMakeFiles/edit_cache.dir
+C:/Users/Eng. Ibrahim Mansour/Documents/stanford_binet/android/app/.cxx/Debug/i646h3e3/x86/CMakeFiles/rebuild_cache.dir

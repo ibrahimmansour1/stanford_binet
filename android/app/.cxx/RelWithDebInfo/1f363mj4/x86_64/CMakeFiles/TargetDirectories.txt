@@ -1,0 +1,2 @@
+C:/Users/Eng. Ibrahim Mansour/Documents/stanford_binet/android/app/.cxx/RelWithDebInfo/1f363mj4/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/Eng. Ibrahim Mansour/Documents/stanford_binet/android/app/.cxx/RelWithDebInfo/1f363mj4/x86_64/CMakeFiles/rebuild_cache.dir

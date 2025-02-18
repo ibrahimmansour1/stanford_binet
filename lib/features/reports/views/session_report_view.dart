@@ -1,9 +1,16 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pdf/pdf.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:open_file/open_file.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:flutter/services.dart' show rootBundle;
 import '../../../core/theme/app_colors.dart';
 
 class SessionReportView extends StatefulWidget {
@@ -88,6 +95,59 @@ class _SessionReportViewState extends State<SessionReportView> {
     }
   }
 
+  Future<pw.Font> loadCustomFont() async {
+    final fontData = await rootBundle.load('assets/fonts/Tajawal-Regular.ttf');
+    return pw.Font.ttf(fontData);
+  }
+
+  Future<void> _generatePdf() async {
+    final pdf = pw.Document();
+
+    // Load a custom font
+    final font = await loadCustomFont();
+
+    // Add a page to the PDF with the custom font
+    pdf.addPage(
+      pw.MultiPage(
+        theme: pw.ThemeData.withFont(base: font),
+        build: (context) => [
+          pw.Text('Session Code: ${widget.sessionCode}',
+              style: pw.TextStyle(fontSize: 16)),
+          pw.SizedBox(height: 10),
+          pw.Table.fromTextArray(
+            headers: const [
+              'Question',
+              'Student Answer',
+              'Correct Answer',
+              'Grade'
+            ],
+            data: List<List<String>>.generate(
+              questions.length,
+              (index) => [
+                'Q${index + 1}: ${questions[index]['question']}',
+                studentAnswers[index] ?? '',
+                questions[index]['correct_answer'] ?? '',
+                '${grades[index] ?? 0}',
+              ],
+            ),
+            headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+            cellAlignment: pw.Alignment.centerLeft,
+            border: pw.TableBorder.all(),
+          ),
+        ],
+      ),
+    );
+
+    // Save the PDF to a file
+    final output = await getTemporaryDirectory();
+    final file =
+        File('${output.path}/session_report_${widget.sessionCode}.pdf');
+    await file.writeAsBytes(await pdf.save());
+
+    // Open the PDF
+    OpenFile.open(file.path);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +158,13 @@ class _SessionReportViewState extends State<SessionReportView> {
                 fontWeight: FontWeight.bold,
               ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.picture_as_pdf),
+            onPressed: _generatePdf,
+            tooltip: 'Generate PDF',
+          ),
+        ],
         centerTitle: true,
         elevation: 0,
       ),

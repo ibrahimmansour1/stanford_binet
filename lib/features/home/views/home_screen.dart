@@ -68,44 +68,44 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           ),
         ],
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Flexible(
-                child: GridView.count(
-                  crossAxisCount: 1,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 1.5,
-                  children: [
-                    AnimatedMenuCard(
-                      title: S.of(context).registerData,
-                      imagePath: 'assets/images/register.png',
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRoutes.registerDataView),
-                      animation: _controller,
-                      delay: _randomDelays[0],
-                    ),
-                    AnimatedMenuCard(
-                      title: S.of(context).childTestCode,
-                      imagePath: 'assets/images/exam.png',
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRoutes.teacherSessionCodeEntryScreen),
-                      animation: _controller,
-                      delay: _randomDelays[1],
-                    ),
-                    AnimatedMenuCard(
-                      title: S.of(context).reports,
-                      imagePath: 'assets/images/reports.png',
-                      onTap: () =>
-                          Navigator.pushNamed(context, AppRoutes.reportsView),
-                      animation: _controller,
-                      delay: _randomDelays[2],
-                    ),
-                  ],
-                ),
+              GridView.count(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisCount: 1,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1.5,
+                children: [
+                  AnimatedMenuCard(
+                    title: S.of(context).registerData,
+                    imagePath: 'assets/images/register.png',
+                    onTap: () => Navigator.pushNamed(
+                        context, AppRoutes.registerDataView),
+                    animation: _controller,
+                    delay: _randomDelays[0],
+                  ),
+                  AnimatedMenuCard(
+                    title: S.of(context).childTestCode,
+                    imagePath: 'assets/images/exam.png',
+                    onTap: () => Navigator.pushNamed(
+                        context, AppRoutes.teacherSessionCodeEntryScreen),
+                    animation: _controller,
+                    delay: _randomDelays[1],
+                  ),
+                  AnimatedMenuCard(
+                    title: S.of(context).reports,
+                    imagePath: 'assets/images/reports.png',
+                    onTap: () =>
+                        Navigator.pushNamed(context, AppRoutes.reportsView),
+                    animation: _controller,
+                    delay: _randomDelays[2],
+                  ),
+                ],
               ),
             ],
           ),
