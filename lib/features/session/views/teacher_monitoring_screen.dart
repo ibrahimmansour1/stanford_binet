@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
@@ -18,6 +21,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
   List<String> _questions = [];
   Map<int, String?> _studentAnswers = {};
   final Map<int, int> _grades = {}; // Stores the grade for each question
+  List<Map<String, dynamic>> _examQuestions = [];
 
   @override
   void initState() {
@@ -27,49 +31,36 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
 
   Future<void> _loadQuestionsAndMonitorAnswers() async {
     try {
-      // Fetch the session document
-      final sessionSnapshot = await FirebaseFirestore.instance
-          .collection('sessions')
-          .doc(widget.sessionCode)
-          .get();
+      // Load questions from JSON file
+      final String jsonString =
+          await rootBundle.loadString('assets/json/exams.json');
+      final List<dynamic> jsonData = json.decode(jsonString);
 
-      if (sessionSnapshot.exists) {
-        final questionIds =
-            List<String>.from(sessionSnapshot.data()?['question_ids'] ?? []);
+      setState(() {
+        _examQuestions = jsonData.cast<Map<String, dynamic>>();
+        _questions =
+            _examQuestions.map((q) => q['question'] as String).toList();
+      });
 
-        // Fetch the questions based on their IDs
-        final questionsSnapshot = await FirebaseFirestore.instance
-            .collection('questions')
-            .where(FieldPath.documentId, whereIn: questionIds)
-            .get();
-
-        setState(() {
-          _questions = questionsSnapshot.docs.map((doc) {
-            final data = doc.data();
-            return data['question'] as String;
-          }).toList();
-        });
-
-        // Listen for real-time updates on student answers
-        FirebaseFirestore.instance
-            .collection('student_answers')
-            .where('session_code', isEqualTo: widget.sessionCode)
-            .snapshots()
-            .listen((snapshot) {
-          final answers = <int, String?>{};
-          for (final doc in snapshot.docs) {
-            final data = doc.data();
-            final index = data['question_index'] as int?;
-            final answer = data['answer'] as String?;
-            if (index != null && answer != null) {
-              answers[index] = answer;
-            }
+      // Keep listening for student answers as before
+      FirebaseFirestore.instance
+          .collection('student_answers')
+          .where('session_code', isEqualTo: widget.sessionCode)
+          .snapshots()
+          .listen((snapshot) {
+        final answers = <int, String?>{};
+        for (final doc in snapshot.docs) {
+          final data = doc.data();
+          final index = data['question_index'] as int?;
+          final answer = data['answer'] as String?;
+          if (index != null && answer != null) {
+            answers[index] = answer;
           }
-          setState(() {
-            _studentAnswers = answers;
-          });
+        }
+        setState(() {
+          _studentAnswers = answers;
         });
-      }
+      });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error loading questions: $e')),
@@ -212,20 +203,22 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildProgressIndicator(),
-              const SizedBox(height: 32),
-              _buildQuestionCard(),
-              const SizedBox(height: 24),
-              _buildGradeButtons(),
-              const Spacer(),
-              _buildNavigationButtons(),
-              const SizedBox(height: 16),
-            ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildProgressIndicator(),
+                const SizedBox(height: 32),
+                _buildQuestionCard(),
+                const SizedBox(height: 24),
+                _buildGradeButtons(),
+                const SizedBox(height: 24), // Changed from Spacer()
+                _buildNavigationButtons(),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
         ),
       ),
@@ -255,6 +248,8 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
   }
 
   Widget _buildQuestionCard() {
+    final currentQuestion = _examQuestions[_currentQuestionIndex];
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -271,11 +266,44 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              _questions[_currentQuestionIndex],
+              currentQuestion['question'],
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     height: 1.5,
                   ),
             ),
+            const SizedBox(height: 16),
+            if (currentQuestion['question_image'] != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  currentQuestion['question_image'],
+                  fit: BoxFit.contain,
+                  height: 200,
+                ),
+              ),
+            const SizedBox(height: 24),
+            if (currentQuestion['hint'] != null &&
+                currentQuestion['hint'].isNotEmpty)
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.amber.shade50,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.amber.shade200),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.lightbulb_outline, color: Colors.amber.shade800),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        currentQuestion['hint'],
+                        style: TextStyle(color: Colors.amber.shade900),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             const SizedBox(height: 24),
             Text(
               'Student Answer:',
@@ -291,11 +319,67 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.grey[300]!),
               ),
-              child: Text(
-                _studentAnswers[_currentQuestionIndex] ?? 'Not answered yet',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+              child: _studentAnswers[_currentQuestionIndex] != null
+                  ? Image.asset(
+                      'assets/images/${_studentAnswers[_currentQuestionIndex]}',
+                      height: 80,
+                      width: 80,
+                      fit: BoxFit.contain,
+                    )
+                  : Text(
+                      'Not answered yet',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
             ),
+            if (currentQuestion['options'] != null &&
+                currentQuestion['option_type'] == 'image')
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Options:',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: Colors.grey[600],
+                          ),
+                    ),
+                    const SizedBox(height: 8),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: (currentQuestion['options'] as List)
+                            .asMap()
+                            .entries
+                            .where((entry) => entry.value != null)
+                            .map((entry) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: currentQuestion['correct_answer'] ==
+                                          entry.key
+                                      ? Colors.green
+                                      : Colors.grey[300]!,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Image.asset(
+                                'assets/images/${entry.value}',
+                                height: 60,
+                                width: 60,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
           ],
         ),
       ),

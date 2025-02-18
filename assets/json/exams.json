@@ -1,0 +1,69 @@
+
+[
+    {
+        "id": 1,
+        "quiz_id": 1,
+        "type": "multiple_choice",
+        "question": "ضع بطاقة التخطيط علي سطح المائدة و الحروف من أ إلي ه في مواجهة المفحوص ، وضع الأشياء كالمين في الصورة ، بحيث تظل الحروف من أ إلي ه مرئية للمفحوص. قل : يلا بينا نلعب لعبة التدوير. أشر إلي عود العد وقل: هادور دلوقت علي واحده زي دي (مرر يدك علي الأشياء المقابلة من ب إلي ذ التقط عود العد فوق ج) وقل: شوف زي التانية بالضبط. اعد العود للوحة وقل: دلوقت اعمل أنت ، ناولني الواحده اللي زي دي بالضبط. (أشر عليها)",
+        "question_image": "assets/images/exam_one/1.png",
+        "options": [null, "cubit.png", "rectangle.png", "triangle.png", null],
+        "option_type": "image",
+        "correct_answer": 2,
+        "max_grade": 1,
+        "hint": "إذا لم يستجيب المفحوص ، أوقدم إجابة خاطئة ، قل: أنت شايف الحمرا (التقط العود الأحمر الموجود فوق الحرف ج واطرق به العود الموضوع أمام المفحوص) وقل: دي زي دي. اعط صفر لهذا البند",
+        "explanation": "",
+        "timer": 0,
+        "timer_hint": "",
+        "conditions": []
+    },
+    {   
+        "id": 2,
+        "quiz_id": 1,
+        "type": "multiple_choice",
+        "question": "ضع الأدوات حسب المعروض في الصورة بحيث الحروف من أ إلي ه مرئية للمفحوص ، أشر إلي المثلث الأزرق الصغير وقل: اديني واحد زى ده",
+        "question_image": "assets/images/exam_one/2.jpg",
+        "options": [null, "triangle.png", "rectangle.png", "cubit.png", null],
+        "option_type": "image",
+        "correct_answer": 3,
+        "max_grade": 1,
+        "hint": "",
+        "explanation": "",
+        "timer": 0,
+        "timer_hint": "",
+        "conditions": []
+    },
+    {
+        "id": 3,
+        "quiz_id": 1,
+        "type": "multiple_choice",
+        "question": "ضع الأدوات حسب المعروض في الصورة بحيث الحروف من أ إلي ه مرئية للمفحوص ، أشر إلي المثلث الأزرق الصغير وقل: اديني واحد زى ده",
+        "question_image": "assets/images/exam_one/2.png",
+        "options": [null, "triangle.png", "rectangle.png", "cubit.png", null],
+        "option_type": "image",
+        "correct_answer": 3,
+        "max_grade": 1,
+        "hint": "",
+        "explanation": "",
+        "timer": 0,
+        "timer_hint": "",
+        "conditions": []
+    },
+    {
+        "id": 4,
+        "quiz_id": 1,
+        "type": "multiple_choice",
+        "question": "ضع الأدوات بالطريقة المعروضة بها في الصورة بحيث تكون الحروف من أ إلي ه مرئية للمفحوص قم بالإشارة إلي المكعب الأخضر وقل: اديني واحد زي ده",
+        "question_image": "assets/images/exam_one/3.jpg",
+        "options": ["large_triangle.png", "cubit.png", "circle.png", "triangle.png", "triangle.png"],
+        "option_type": "image",
+        "correct_answer": 1,
+        "max_grade": 1,
+        "hint": "",
+        "explanation": "",
+        "timer": 0,
+        "timer_hint": "",
+        "conditions": [
+        ]
+    }
+    
+]  

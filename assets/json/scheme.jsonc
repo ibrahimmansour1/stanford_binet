@@ -1,0 +1,107 @@
+// questionsTypes: ['mulitple_choice', 'voice', 'image', 'puzzle', 'text']
+// question: ["]
+
+
+
+
+// type
+
+// 1- voice
+// 2- image
+// 3- text
+// 4- multiple_choice
+// 5- puzzle
+
+
+// voice
+
+// image
+
+// multiple_choice
+
+// schema: 
+// {
+//     "type": "multiple_choice",
+//     "question": "What is the capital of France?",
+//     "question_image": "image.png",
+//     "options": ["Paris", "Berlin", "Madrid", "Rome", "image.png"], // text or image.png (you will get the image from assets/images)
+//     "option_type": "text", // text, image 
+//     "currect_answer": ["Paris"],
+//     "max_grade": 2,
+//     "hint": "It is a city of love",
+//     "explanation": "Paris is the capital of France",
+//     "timer": 180,
+//     "timer_hint": "You have 3 minutes to answer this question",
+//     "conditions": [
+//         {
+//             "condition": "{{self.grade}} == 0 || {{question_15.grade}} == 0 || {{question_14.grade}} == 0 || {{user.age}}",
+//             "go_to_question": 5
+//         },
+//     ] 
+// }    
+
+// image
+
+// schema:
+// {
+//     "type": "image",
+//     "question": "What is the capital of France?",
+//     "image": "image.png",
+//     "currect_answer": ["Paris"],
+//     "max_grade": 2,
+//     "hint": "It is a city of love",
+//     "explanation": "Paris is the capital of France",
+//     "timer": 180,
+//     "timer_hint": "You have 3 minutes to answer this question",
+//     "conditions": [
+//         {
+//             "condition": "{{self.grade}} == 0 || {{question_15.grade}} == 0 || {{question_14.grade}} == 0 || {{user.age}}",
+//             "go_to_question": 5
+//         },
+//     ]
+// }
+
+// text
+
+// schema:
+// {
+//     "type": "text",
+//     "question": "What is the capital of France?",
+//     "currect_answer": ["Paris"],
+//     "max_grade": 2,
+//     "hint": "It is a city of love",
+//     "explanation": "Paris is the capital of France",
+//     "timer": 180,
+//     "timer_hint": "You have 3 minutes to answer this question",
+//     "conditions": [
+//         {
+//             "condition": "{{self.grade}} == 0 || {{question_15.grade}} == 0 || {{question_14.grade}} == 0 || {{user.age}}",
+//             "go_to_question": 5
+//         },
+//     ]
+// }
+
+// puzzle
+
+// schema:
+// {
+//     "type": "puzzle",
+//     "question": "What is the capital of France?",
+//     "question_image": "image.png",
+//     "currect_answer": ["Paris"],
+//     "max_grade": 2,
+//     "hint": "It is a city of love",
+//     "explanation": "Paris is the capital of France",
+//     "timer": 180,
+//     "timer_hint": "You have 3 minutes to answer this question",
+//     "conditions": [
+//         {
+//             "condition": "{{self.grade}} == 0 || {{question_15.grade}} == 0 || {{question_14.grade}} == 0 || {{user.age}}",
+//             "go_to_question": 5
+//         },
+//     ]
+// }
+
+
+// exam conditions
+
