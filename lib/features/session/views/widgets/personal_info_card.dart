@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/widgets/custom_date_picker.dart';
 import '../../../../core/widgets/custom_drop_down.dart';
 import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../generated/l10n.dart';
 
 class PersonalInfoCard extends StatelessWidget {
   final TextEditingController nameController;
@@ -35,12 +36,12 @@ class PersonalInfoCard extends StatelessWidget {
       days += monthDays;
       months--;
     }
-    return '$years years, $months months, $days days';
+    return S.current.ageFormat(years, months, days);
   }
 
   String? _validateNameSyllables(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Name is required';
+      return S.current.nameRequired;
     }
 
     // Split name into words
@@ -48,13 +49,13 @@ class PersonalInfoCard extends StatelessWidget {
 
     // Check if we have exactly 4 words
     if (words.length != 4) {
-      return 'Please enter full name (4 parts)';
+      return S.current.namePartsValidation;
     }
 
     // Validate each word
     for (final word in words) {
       if (word.isEmpty || !RegExp(r'^[a-zA-Z]+$').hasMatch(word)) {
-        return 'Each name part should contain only letters';
+        return S.current.nameLettersOnly;
       }
     }
 
@@ -63,11 +64,11 @@ class PersonalInfoCard extends StatelessWidget {
 
   String? _validateDate(DateTime? date) {
     if (date == null) {
-      return 'Date of birth is required';
+      return S.current.dateRequired;
     }
 
     if (date.isAfter(DateTime.now())) {
-      return 'Date cannot be in the future';
+      return S.current.futureDateError;
     }
 
     return null;
@@ -85,18 +86,18 @@ class PersonalInfoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Personal Information',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              S.current.personalInformation,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             CustomTextField(
               controller: nameController,
-              label: 'Full Name (4 parts)',
+              label: S.current.fullNameLabel,
               prefixIcon: Icons.person,
               isRequired: true,
               validator: _validateNameSyllables,
-              helperText: 'Enter first, second, third and family name',
+              helperText: S.current.fullNameHelper,
               textCapitalization: TextCapitalization.words,
             ),
             const SizedBox(height: 16),

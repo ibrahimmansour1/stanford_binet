@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../generated/l10n.dart';
 import 'teacher_monitoring_screen.dart';
 
 class TeacherSessionCodeEntryScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class _TeacherSessionCodeEntryScreenState
 
     final sessionCode = _sessionCodeController.text.trim();
     if (sessionCode.isEmpty || sessionCode.length != 6) {
-      _showError('Please enter a valid 6-digit session code.');
+      _showError(S.of(context).pleaseEnterValidSessionCode);
       return;
     }
 
@@ -60,7 +61,7 @@ class _TeacherSessionCodeEntryScreenState
           .get();
 
       if (sessionSnapshot.docs.isEmpty) {
-        _showError('Invalid session code. Please try again.');
+        _showError(S.of(context).invalidSessionCode);
         return;
       }
 
@@ -74,7 +75,7 @@ class _TeacherSessionCodeEntryScreenState
         );
       }
     } catch (e) {
-      _showError('Error validating session code. Please try again.');
+      _showError(S.of(context).errorValidatingSessionCode);
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);
@@ -98,7 +99,7 @@ class _TeacherSessionCodeEntryScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Enter Session Code',
+          S.of(context).enterSessionCode,
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -150,7 +151,7 @@ class _TeacherSessionCodeEntryScreenState
                         textAlign: TextAlign.center,
                         style: theme.textTheme.headlineSmall,
                         decoration: InputDecoration(
-                          labelText: 'Session Code',
+                          labelText: S.of(context).sessionCode,
                           errorText: _errorMessage,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -174,7 +175,7 @@ class _TeacherSessionCodeEntryScreenState
                 ),
                 child: _isLoading
                     ? const CircularProgressIndicator()
-                    : const Text('Monitor Exam'),
+                    : Text(S.of(context).monitorExam),
               ),
               const Spacer(flex: 2),
             ],

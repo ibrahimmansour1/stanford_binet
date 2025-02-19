@@ -199,6 +199,496 @@ class S {
       args: [],
     );
   }
+
+  /// `An error occurred during login`
+  String get loginErrorTitle {
+    return Intl.message(
+      'An error occurred during login',
+      name: 'loginErrorTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No user found with this email`
+  String get userNotFoundError {
+    return Intl.message(
+      'No user found with this email',
+      name: 'userNotFoundError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect password`
+  String get wrongPasswordError {
+    return Intl.message(
+      'Incorrect password',
+      name: 'wrongPasswordError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid email format`
+  String get invalidEmailError {
+    return Intl.message(
+      'Invalid email format',
+      name: 'invalidEmailError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dismiss`
+  String get dismissButton {
+    return Intl.message(
+      'Dismiss',
+      name: 'dismissButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session Test Data`
+  String get sessionTestData {
+    return Intl.message(
+      'Session Test Data',
+      name: 'sessionTestData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Specialist Home View`
+  String get specialistHomeView {
+    return Intl.message(
+      'Specialist Home View',
+      name: 'specialistHomeView',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Information`
+  String get personalInformation {
+    return Intl.message(
+      'Personal Information',
+      name: 'personalInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Full Name (4 parts)`
+  String get fullNameLabel {
+    return Intl.message(
+      'Full Name (4 parts)',
+      name: 'fullNameLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter first, second, third and family name`
+  String get fullNameHelper {
+    return Intl.message(
+      'Enter first, second, third and family name',
+      name: 'fullNameHelper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name is required`
+  String get nameRequired {
+    return Intl.message(
+      'Name is required',
+      name: 'nameRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter full name (4 parts)`
+  String get namePartsValidation {
+    return Intl.message(
+      'Please enter full name (4 parts)',
+      name: 'namePartsValidation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Each name part should contain only letters`
+  String get nameLettersOnly {
+    return Intl.message(
+      'Each name part should contain only letters',
+      name: 'nameLettersOnly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date of birth is required`
+  String get dateRequired {
+    return Intl.message(
+      'Date of birth is required',
+      name: 'dateRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date cannot be in the future`
+  String get futureDateError {
+    return Intl.message(
+      'Date cannot be in the future',
+      name: 'futureDateError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{years} years, {months} months, {days} days`
+  String ageFormat(int years, int months, int days) {
+    return Intl.message(
+      '$years years, $months months, $days days',
+      name: 'ageFormat',
+      desc: '',
+      args: [years, months, days],
+    );
+  }
+
+  /// `Please fill in all required fields`
+  String get validationError {
+    return Intl.message(
+      'Please fill in all required fields',
+      name: 'validationError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session created successfully! Session code: {code}`
+  String successMessage(String code) {
+    return Intl.message(
+      'Session created successfully! Session code: $code',
+      name: 'successMessage',
+      desc: '',
+      args: [code],
+    );
+  }
+
+  /// `Session Code`
+  String get sessionCode {
+    return Intl.message(
+      'Session Code',
+      name: 'sessionCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Session Code`
+  String get enterSessionCode {
+    return Intl.message(
+      'Enter Session Code',
+      name: 'enterSessionCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid 6-digit session code.`
+  String get pleaseEnterValidSessionCode {
+    return Intl.message(
+      'Please enter a valid 6-digit session code.',
+      name: 'pleaseEnterValidSessionCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid session code. Please try again.`
+  String get invalidSessionCode {
+    return Intl.message(
+      'Invalid session code. Please try again.',
+      name: 'invalidSessionCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error validating session code. Please try again.`
+  String get errorValidatingSessionCode {
+    return Intl.message(
+      'Error validating session code. Please try again.',
+      name: 'errorValidatingSessionCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error loading questions: {error}`
+  String errorLoadingQuestions(String error) {
+    return Intl.message(
+      'Error loading questions: $error',
+      name: 'errorLoadingQuestions',
+      desc: '',
+      args: [error],
+    );
+  }
+
+  /// `Next Question`
+  String get nextQuestion {
+    return Intl.message(
+      'Next Question',
+      name: 'nextQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous Question`
+  String get previousQuestion {
+    return Intl.message(
+      'Previous Question',
+      name: 'previousQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Question {number}`
+  String questionNumber(int number) {
+    return Intl.message(
+      'Question $number',
+      name: 'questionNumber',
+      desc: '',
+      args: [number],
+    );
+  }
+
+  /// `Student Answer: {answer}`
+  String studentAnswer(String answer) {
+    return Intl.message(
+      'Student Answer: $answer',
+      name: 'studentAnswer',
+      desc: '',
+      args: [answer],
+    );
+  }
+
+  /// `Student Answer`
+  String get studentAnswerLabel {
+    return Intl.message(
+      'Student Answer',
+      name: 'studentAnswerLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Grade`
+  String get grade {
+    return Intl.message(
+      'Grade',
+      name: 'grade',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Grade`
+  String get saveGrade {
+    return Intl.message(
+      'Save Grade',
+      name: 'saveGrade',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Grade (out of {max})`
+  String gradeOutOfMax(int max) {
+    return Intl.message(
+      'Grade (out of $max)',
+      name: 'gradeOutOfMax',
+      desc: '',
+      args: [max],
+    );
+  }
+
+  /// `Grade saved successfully`
+  String get gradeSaved {
+    return Intl.message(
+      'Grade saved successfully',
+      name: 'gradeSaved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error saving grade: {error}`
+  String errorSavingGrade(String error) {
+    return Intl.message(
+      'Error saving grade: $error',
+      name: 'errorSavingGrade',
+      desc: '',
+      args: [error],
+    );
+  }
+
+  /// `Monitor Exam`
+  String get monitorExam {
+    return Intl.message(
+      'Monitor Exam',
+      name: 'monitorExam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading exam data...`
+  String get loadingExamData {
+    return Intl.message(
+      'Loading exam data...',
+      name: 'loadingExamData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Question {current}/{total}`
+  String questionNumberOf(int current, int total) {
+    return Intl.message(
+      'Question $current/$total',
+      name: 'questionNumberOf',
+      desc: '',
+      args: [current, total],
+    );
+  }
+
+  /// `Question:`
+  String get questionLabel {
+    return Intl.message(
+      'Question:',
+      name: 'questionLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not answered yet`
+  String get notAnsweredYet {
+    return Intl.message(
+      'Not answered yet',
+      name: 'notAnsweredYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Options:`
+  String get optionsLabel {
+    return Intl.message(
+      'Options:',
+      name: 'optionsLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous`
+  String get previous {
+    return Intl.message(
+      'Previous',
+      name: 'previous',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{grade} answer`
+  String gradeFeedback(String grade) {
+    return Intl.message(
+      '$grade answer',
+      name: 'gradeFeedback',
+      desc: '',
+      args: [grade],
+    );
+  }
+
+  /// `Correct Answer`
+  String get correctAnswer {
+    return Intl.message(
+      'Correct Answer',
+      name: 'correctAnswer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The correct answer is: {answer}`
+  String correctAnswerIs(String answer) {
+    return Intl.message(
+      'The correct answer is: $answer',
+      name: 'correctAnswerIs',
+      desc: '',
+      args: [answer],
+    );
+  }
+
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong`
+  String get wrong {
+    return Intl.message(
+      'Wrong',
+      name: 'wrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Partial`
+  String get partial {
+    return Intl.message(
+      'Partial',
+      name: 'partial',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Correct`
+  String get correct {
+    return Intl.message(
+      'Correct',
+      name: 'correct',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

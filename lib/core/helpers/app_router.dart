@@ -6,6 +6,7 @@ import 'package:stanford_binet/features/session/views/teacher_session_code_entry
 import '../../features/auth/views/login_screen.dart';
 import '../../features/home/views/home_screen.dart';
 import '../../features/session/views/register_data_view.dart';
+import '../../generated/l10n.dart';
 
 class AppRoutes {
   static const String initial = '/';
@@ -37,7 +38,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
     case AppRoutes.sessionTestData:
       return MaterialPageRoute(
-        builder: (_) => const Text('Session Test Data'),
+        builder: (context) => Text(S.of(context).sessionTestData),
         settings: settings,
       );
 
@@ -49,7 +50,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
     case AppRoutes.specialistHomeView:
       return MaterialPageRoute(
-        builder: (_) => const Text('Specialist Home View'),
+        builder: (context) => Text(S.of(context).specialistHomeView),
         settings: settings,
       );
     case AppRoutes.registerDataView:

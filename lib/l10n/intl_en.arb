@@ -21,5 +21,133 @@
   },
   "registerData": "Register Data",
   "childTestCode": "Child Test Code",
-  "reports": "Reports"
+  "reports": "Reports",
+  "loginErrorTitle": "An error occurred during login",
+  "userNotFoundError": "No user found with this email",
+  "wrongPasswordError": "Incorrect password",
+  "invalidEmailError": "Invalid email format",
+  "dismissButton": "Dismiss",
+  "sessionTestData": "Session Test Data",
+  "specialistHomeView": "Specialist Home View",
+  "personalInformation": "Personal Information",
+  "fullNameLabel": "Full Name (4 parts)",
+  "fullNameHelper": "Enter first, second, third and family name",
+  "nameRequired": "Name is required",
+  "namePartsValidation": "Please enter full name (4 parts)",
+  "nameLettersOnly": "Each name part should contain only letters",
+  "dateRequired": "Date of birth is required",
+  "futureDateError": "Date cannot be in the future",
+  "ageFormat": "{years} years, {months} months, {days} days",
+  "@ageFormat": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "months": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "validationError": "Please fill in all required fields",
+  "successMessage": "Session created successfully! Session code: {code}",
+  "@successMessage": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "sessionCode": "Session Code",
+  "enterSessionCode": "Enter Session Code",
+  "pleaseEnterValidSessionCode": "Please enter a valid 6-digit session code.",
+  "invalidSessionCode": "Invalid session code. Please try again.",
+  "errorValidatingSessionCode": "Error validating session code. Please try again.",
+  "errorLoadingQuestions": "Error loading questions: {error}",
+  "@errorLoadingQuestions": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "nextQuestion": "Next Question",
+  "previousQuestion": "Previous Question",
+  "questionNumber": "Question {number}",
+  "@questionNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "studentAnswer": "Student Answer: {answer}",
+  "studentAnswerLabel": "Student Answer",
+  "@studentAnswer": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "grade": "Grade",
+  "saveGrade": "Save Grade",
+  "gradeOutOfMax": "Grade (out of {max})",
+  "@gradeOutOfMax": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "gradeSaved": "Grade saved successfully",
+  "errorSavingGrade": "Error saving grade: {error}",
+  "@errorSavingGrade": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "monitorExam": "Monitor Exam",
+  "loadingExamData": "Loading exam data...",
+  "questionNumberOf": "Question {current}/{total}",
+  "@questionNumberOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "questionLabel": "Question:",
+  "notAnsweredYet": "Not answered yet",
+  "optionsLabel": "Options:",
+  "previous": "Previous",
+  "next": "Next",
+  "gradeFeedback": "{grade} answer",
+  "@gradeFeedback": {
+    "placeholders": {
+      "grade": {
+        "type": "String"
+      }
+    }
+  },
+  "correctAnswer": "Correct Answer",
+  "correctAnswerIs": "The correct answer is: {answer}",
+  "@correctAnswerIs": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "ok": "OK",
+  "wrong": "Wrong",
+  "partial": "Partial",
+  "correct": "Correct"
 }

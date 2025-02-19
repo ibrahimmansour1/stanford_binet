@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
+import '../../../generated/l10n.dart';
+
 class TeacherMonitoringScreen extends StatefulWidget {
   final String sessionCode;
 
@@ -63,7 +65,8 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading questions: $e')),
+        SnackBar(
+            content: Text(S.of(context).errorLoadingQuestions(e.toString()))),
       );
     }
   }
@@ -114,7 +117,11 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Grade ${grade == 0 ? "Wrong" : grade == 1 ? "Partial" : "Correct"} saved successfully',
+              S.of(context).gradeFeedback(grade == 0
+                  ? S.of(context).wrong
+                  : grade == 1
+                      ? S.of(context).partial
+                      : S.of(context).correct),
             ),
             backgroundColor: grade == 2
                 ? Colors.green
@@ -146,12 +153,12 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text('Correct Answer'),
-                content: Text('The correct answer is: $correctAnswer'),
+                title: Text(S.of(context).correctAnswer),
+                content: Text(S.of(context).correctAnswerIs(correctAnswer)),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: const Text('OK'),
+                    child: Text(S.of(context).ok),
                   ),
                 ],
               ),
@@ -164,7 +171,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error saving grade: $e'),
+            content: Text(S.of(context).errorSavingGrade(e.toString())),
             backgroundColor: Colors.red,
             duration: const Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
@@ -177,14 +184,14 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
   @override
   Widget build(BuildContext context) {
     if (_questions.isEmpty) {
-      return const Scaffold(
+      return Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomLoader(),
               SizedBox(height: 16),
-              Text('Loading exam data...'),
+              Text(S.of(context).loadingExamData),
             ],
           ),
         ),
@@ -194,7 +201,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Monitor Exam',
+          S.of(context).monitorExam,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -231,7 +238,10 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
       child: Row(
         children: [
           Text(
-            'Question ${_currentQuestionIndex + 1}/${_questions.length}',
+            S.of(context).questionNumberOf(
+                  _currentQuestionIndex + 1,
+                  _questions.length,
+                ),
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(width: 16),
@@ -259,7 +269,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Question:',
+              S.of(context).questionLabel,
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: Colors.grey[600],
                   ),
@@ -306,7 +316,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
               ),
             const SizedBox(height: 24),
             Text(
-              'Student Answer:',
+              S.of(context).studentAnswerLabel,
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: Colors.grey[600],
                   ),
@@ -327,7 +337,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                       fit: BoxFit.contain,
                     )
                   : Text(
-                      'Not answered yet',
+                      S.of(context).notAnsweredYet,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
             ),
@@ -339,7 +349,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Options:',
+                      S.of(context).optionsLabel,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             color: Colors.grey[600],
                           ),
@@ -435,10 +445,10 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                 const SizedBox(height: 4),
                 Text(
                   grade == 0
-                      ? 'Wrong'
+                      ? S.of(context).wrong
                       : grade == 1
-                          ? 'Partial'
-                          : 'Correct',
+                          ? S.of(context).partial
+                          : S.of(context).correct,
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight:
@@ -463,7 +473,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                 ? () => _updateCurrentQuestionIndex(_currentQuestionIndex - 1)
                 : null,
             icon: const Icon(Icons.arrow_back),
-            label: const Text('Previous'),
+            label: Text(S.of(context).previous),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
@@ -479,7 +489,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                 ? () => _updateCurrentQuestionIndex(_currentQuestionIndex + 1)
                 : null,
             icon: const Icon(Icons.arrow_forward),
-            label: const Text('Next'),
+            label: Text(S.of(context).next),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(

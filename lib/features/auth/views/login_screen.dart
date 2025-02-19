@@ -36,14 +36,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       } catch (e) {
         if (!mounted) return;
 
-        String errorMessage = 'An error occurred during login';
+        String errorMessage = S.of(context).loginErrorTitle;
 
         if (e.toString().contains('user-not-found')) {
-          errorMessage = 'No user found with this email';
+          errorMessage = S.of(context).userNotFoundError;
         } else if (e.toString().contains('wrong-password')) {
-          errorMessage = 'Incorrect password';
+          errorMessage = S.of(context).wrongPasswordError;
         } else if (e.toString().contains('invalid-email')) {
-          errorMessage = 'Invalid email format';
+          errorMessage = S.of(context).invalidEmailError;
         }
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -61,7 +61,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             backgroundColor: Colors.red.shade700,
             duration: const Duration(seconds: 3),
             action: SnackBarAction(
-              label: 'Dismiss',
+              label: S.of(context).dismissButton,
               textColor: Colors.white,
               onPressed: () {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -86,8 +86,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           _emailController.text,
         );
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Password reset email sent. Please check your inbox.'),
+      SnackBar(
+        content: Text(S.of(context).passwordResetSentMessage),
       ),
     );
   }

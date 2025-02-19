@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../core/services/toast_service.dart';
+import '../../../generated/l10n.dart';
 
 class RegisterService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -59,7 +60,7 @@ class RegisterService {
       context: context,
       dialogType: DialogType.success,
       animType: AnimType.scale,
-      title: 'Success',
+      title: S.of(context).successMessage(sessionCode),
       titleTextStyle: const TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
@@ -69,9 +70,9 @@ class RegisterService {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           children: [
-            const Text(
-              'Data saved successfully!',
-              style: TextStyle(fontSize: 16),
+            Text(
+              S.of(context).successMessage(sessionCode),
+              style: const TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
@@ -87,9 +88,9 @@ class RegisterService {
               ),
               child: Column(
                 children: [
-                  const Text(
-                    'Session Code',
-                    style: TextStyle(
+                  Text(
+                    S.of(context).sessionCode,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
                     ),

@@ -1,22 +1,178 @@
 {
-    "@@locale": "ar_EG",
-    "appTitle": "ستانفورد بينيه",
-    "loginTitle": "اختبار ستانفورد-بينيه للذكاء",
-    "loginSubtitle": "وصول سهل للمتخصصين",
-    "emailLabel": "البريد الإلكتروني",
-    "passwordLabel": "كلمة المرور",
-    "emailValidationMessage": "الرجاء إدخال البريد الإلكتروني",
-    "passwordValidationMessage": "الرجاء إدخال كلمة المرور",
-    "loginButtonText": "تسجيل الدخول",
-    "forgotPasswordText": "نسيت كلمة المرور؟",
-    "enterEmailMessage": "الرجاء إدخال عنوان بريدك الإلكتروني",
-    "passwordResetSentMessage": "تم إرسال رابط إعادة تعيين كلمة المرور. يرجى التحقق من بريدك الإلكتروني.",
-    "errorMessage": "خطأ: {error}",
-    "@errorMessage": {
-      "placeholders": {
-        "error": {
-          "type": "String"
-        }
+  "@@locale": "ar_EG",
+  "appTitle": "ستانفورد بينيه",
+  "loginTitle": "اختبار ستانفورد-بينيه للذكاء",
+  "loginSubtitle": "وصول سهل للمتخصصين",
+  "emailLabel": "البريد الإلكتروني",
+  "passwordLabel": "كلمة المرور",
+  "emailValidationMessage": "الرجاء إدخال البريد الإلكتروني",
+  "passwordValidationMessage": "الرجاء إدخال كلمة المرور",
+  "loginButtonText": "تسجيل الدخول",
+  "forgotPasswordText": "نسيت كلمة المرور؟",
+  "enterEmailMessage": "الرجاء إدخال عنوان بريدك الإلكتروني",
+  "passwordResetSentMessage": "تم إرسال رابط إعادة تعيين كلمة المرور. يرجى التحقق من بريدك الوارد.",
+  "errorMessage": "خطأ: {error}",
+  "@errorMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
       }
     }
+  },
+  "registerData": "تسجيل البيانات",
+  "childTestCode": "رمز اختبار الطفل",
+  "reports": "التقارير",
+  "loginErrorTitle": "حدث خطأ أثناء تسجيل الدخول",
+  "userNotFoundError": "لم يتم العثور على مستخدم بهذا البريد الإلكتروني",
+  "wrongPasswordError": "كلمة المرور غير صحيحة",
+  "invalidEmailError": "صيغة البريد الإلكتروني غير صحيحة",
+  "dismissButton": "إغلاق",
+  "sessionTestData": "بيانات جلسة الاختبار",
+  "specialistHomeView": "الصفحة الرئيسية للمتخصص",
+  "personalInformation": "المعلومات الشخصية",
+  "fullNameLabel": "الاسم الكامل (4 أجزاء)",
+  "fullNameHelper": "أدخل الاسم الأول والثاني والثالث واسم العائلة",
+  "nameRequired": "الاسم مطلوب",
+  "namePartsValidation": "الرجاء إدخال الاسم الكامل (4 أجزاء)",
+  "nameLettersOnly": "يجب أن يحتوي كل جزء من الاسم على أحرف فقط",
+  "dateRequired": "تاريخ الميلاد مطلوب",
+  "futureDateError": "لا يمكن أن يكون التاريخ في المستقبل",
+  "ageFormat": "{years} سنة، {months} شهر، {days} يوم",
+  "@ageFormat": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "months": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "validationError": "يرجى ملء جميع الحقول المطلوبة",
+  "successMessage": "تم إنشاء الجلسة بنجاح! رمز الجلسة: {code}",
+  "@successMessage": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "sessionCode": "رمز الجلسة",
+  "errorLoadingQuestions": "خطأ في تحميل الأسئلة: {error}",
+  "@errorLoadingQuestions": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "nextQuestion": "السؤال التالي",
+  "previousQuestion": "السؤال السابق",
+  "questionNumber": "السؤال {number}",
+  "@questionNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "studentAnswer": "إجابة الطالب: {answer}",
+  "studentAnswerLabel": "إجابة الطالب",
+
+  "@studentAnswer": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "grade": "الدرجة",
+  "saveGrade": "حفظ الدرجة",
+  "gradeOutOfMax": "الدرجة (من {max})",
+  "@gradeOutOfMax": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "gradeSaved": "تم حفظ الدرجة بنجاح",
+  "errorSavingGrade": "خطأ في حفظ الدرجة: {error}",
+  "@errorSavingGrade": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "monitorExam": "مراقبة الاختبار",
+  "loadingExamData": "جاري تحميل بيانات الاختبار...",
+  "correctAnswer": "الإجابة الصحيحة",
+  "correctAnswerIs": "الإجابة الصحيحة هي: {answer}",
+  "@correctAnswerIs": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "ok": "موافق",
+  "gradeFeedback": "تم حفظ الدرجة {status} بنجاح",
+  "@gradeFeedback": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "wrong": "خطأ",
+  "partial": "جزئي",
+  "correct": "صحيح",
+  "sessionCode": "رمز الجلسة",
+  "enterSessionCode": "أدخل رمز الجلسة",
+  "pleaseEnterValidSessionCode": "الرجاء إدخال رمز جلسة صحيح مكون من 6 أرقام.",
+  "invalidSessionCode": "رمز الجلسة غير صالح. الرجاء المحاولة مرة أخرى.",
+  "errorValidatingSessionCode": "خطأ في التحقق من رمز الجلسة. الرجاء المحاولة مرة أخرى.",
+  "errorLoadingQuestions": "خطأ في تحميل الأسئلة: {error}",
+  "loadingExamData": "جاري تحميل بيانات الاختبار...",
+  "questionNumberOf": "السؤال {current}/{total}",
+  "@questionNumberOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "questionLabel": "السؤال:",
+  "notAnsweredYet": "لم تتم الإجابة بعد",
+  "optionsLabel": "الخيارات:",
+  "previous": "السابق",
+  "next": "التالي",
+  "gradeFeedback": "إجابة {grade}",
+  "@gradeFeedback": {
+    "placeholders": {
+      "grade": {
+        "type": "String"
+      }
+    }
+  },
+  "correctAnswer": "الإجابة الصحيحة",
+  "correctAnswerIs": "الإجابة الصحيحة هي: {answer}",
+  "@correctAnswerIs": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "ok": "موافق",
+  "wrong": "خطأ",
+  "partial": "جزئي", 
+  "correct": "صحيح"
 }

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
+import '../../../generated/l10n.dart';
+
 class Question {
   final int id;
   final int quizId;
@@ -80,7 +82,8 @@ class _StudentExamScreenState extends State<StudentExamScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error loading questions: $e')),
+          SnackBar(
+              content: Text(S.of(context).errorLoadingQuestions(e.toString()))),
         );
       }
     }

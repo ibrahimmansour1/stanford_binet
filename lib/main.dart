@@ -40,6 +40,7 @@ class MyApp extends ConsumerWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
+            locale: const Locale('ar', 'EG'),
             title: "Stanford Benit",
             theme: ThemeData(
               colorScheme: ColorScheme(
