@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
 import '../../../generated/l10n.dart';
+import 'widgets/teacher_drawing_view.dart';
 
 class TeacherMonitoringScreen extends StatefulWidget {
   final String sessionCode;
@@ -285,11 +286,16 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
             if (currentQuestion['question_image'] != null)
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  currentQuestion['question_image'],
-                  fit: BoxFit.contain,
-                  height: 200,
-                ),
+                child: currentQuestion['type'] == 'drawing'
+                    ? TeacherDrawingView(
+                        sessionCode: widget.sessionCode,
+                        questionIndex: _currentQuestionIndex,
+                      )
+                    : Image.asset(
+                        currentQuestion['question_image'],
+                        fit: BoxFit.contain,
+                        height: 200,
+                      ),
               ),
             const SizedBox(height: 24),
             if (currentQuestion['hint'] != null &&
@@ -330,12 +336,17 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                 border: Border.all(color: Colors.grey[300]!),
               ),
               child: _studentAnswers[_currentQuestionIndex] != null
-                  ? Image.asset(
-                      'assets/images/${_studentAnswers[_currentQuestionIndex]}',
-                      height: 80,
-                      width: 80,
-                      fit: BoxFit.contain,
-                    )
+                  ? currentQuestion['type'] == 'drawing'
+                      ? TeacherDrawingView(
+                          sessionCode: widget.sessionCode,
+                          questionIndex: _currentQuestionIndex,
+                        )
+                      : Image.asset(
+                          'assets/images/${_studentAnswers[_currentQuestionIndex]}',
+                          height: 80,
+                          width: 80,
+                          fit: BoxFit.contain,
+                        )
                   : Text(
                       S.of(context).notAnsweredYet,
                       style: Theme.of(context).textTheme.bodyLarge,

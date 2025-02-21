@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart';
 import 'package:stanford_binet/core/widgets/custom_loader.dart';
 
 import '../../../generated/l10n.dart';
+import 'widgets/drawing_canvas.dart';
 
 class Question {
   final int id;
@@ -198,6 +199,28 @@ class _StudentExamScreenState extends State<StudentExamScreen> {
     }).toList();
   }
 
+  Widget _buildDrawingQuestion() {
+    final question = _questions[_currentQuestionIndex];
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Text(question.question, style: TextStyle(fontSize: 16)),
+          const SizedBox(height: 16),
+          Expanded(
+            child: DrawingCanvas(
+              imagePath: question.questionImage,
+              onDrawingUpdate: (strokes) => _saveAnswer(
+                _currentQuestionIndex,
+                jsonEncode(strokes),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -242,12 +265,10 @@ class _StudentExamScreenState extends State<StudentExamScreen> {
                         fit: BoxFit.contain,
                       ),
                     const SizedBox(height: 16),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: _buildMultipleChoiceOptions(
-                          _questions[_currentQuestionIndex]),
-                    ),
+                    ...(_questions[_currentQuestionIndex].type == 'drawing'
+                        ? [_buildDrawingQuestion()]
+                        : _buildMultipleChoiceOptions(
+                            _questions[_currentQuestionIndex])),
                     if (_questions[_currentQuestionIndex].hint.isNotEmpty) ...[
                       const SizedBox(height: 16),
                       Text(
