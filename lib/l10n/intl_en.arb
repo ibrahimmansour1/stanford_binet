@@ -113,7 +113,7 @@
   },
   "monitorExam": "Monitor Exam",
   "loadingExamData": "Loading exam data...",
-  "questionNumberOf": "Question {current}/{total}",
+  "questionNumberOf": "Question {current} of {total}",
   "@questionNumberOf": {
     "placeholders": {
       "current": {
@@ -149,5 +149,7 @@
   "ok": "OK",
   "wrong": "Wrong",
   "partial": "Partial",
-  "correct": "Correct"
+  "correct": "Correct",
+  "examTitle": "Exam",
+  "loadingQuestions": "Loading questions..."
 }

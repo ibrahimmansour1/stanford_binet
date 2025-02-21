@@ -260,6 +260,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
 
   Widget _buildQuestionCard() {
     final currentQuestion = _examQuestions[_currentQuestionIndex];
+    final questionImage = currentQuestion['question_image'] as String?;
 
     return Card(
       elevation: 4,
@@ -290,12 +291,9 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                     ? TeacherDrawingView(
                         sessionCode: widget.sessionCode,
                         questionIndex: _currentQuestionIndex,
+                        imagePath: questionImage!, // Pass dynamic path
                       )
-                    : Image.asset(
-                        currentQuestion['question_image'],
-                        fit: BoxFit.contain,
-                        height: 200,
-                      ),
+                    : Image.asset(questionImage!),
               ),
             const SizedBox(height: 24),
             if (currentQuestion['hint'] != null &&
@@ -340,6 +338,7 @@ class _TeacherMonitoringScreenState extends State<TeacherMonitoringScreen> {
                       ? TeacherDrawingView(
                           sessionCode: widget.sessionCode,
                           questionIndex: _currentQuestionIndex,
+                          imagePath: questionImage!, // Pass dynamic path
                         )
                       : Image.asset(
                           'assets/images/${_studentAnswers[_currentQuestionIndex]}',

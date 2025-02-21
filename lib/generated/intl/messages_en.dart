@@ -37,7 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m7(number) => "Question ${number}";
 
-  static String m8(current, total) => "Question ${current}/${total}";
+  static String m8(current, total) => "Question ${current} of ${total}";
 
   static String m9(answer) => "Student Answer: ${answer}";
 
@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorSavingGrade": m4,
         "errorValidatingSessionCode": MessageLookupByLibrary.simpleMessage(
             "Error validating session code. Please try again."),
+        "examTitle": MessageLookupByLibrary.simpleMessage("Exam"),
         "forgotPasswordText":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "fullNameHelper": MessageLookupByLibrary.simpleMessage(
@@ -87,6 +88,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Invalid session code. Please try again."),
         "loadingExamData":
             MessageLookupByLibrary.simpleMessage("Loading exam data..."),
+        "loadingQuestions":
+            MessageLookupByLibrary.simpleMessage("Loading questions..."),
         "loginButtonText": MessageLookupByLibrary.simpleMessage("Login"),
         "loginErrorTitle": MessageLookupByLibrary.simpleMessage(
             "An error occurred during login"),

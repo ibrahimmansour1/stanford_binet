@@ -560,10 +560,10 @@ class S {
     );
   }
 
-  /// `Question {current}/{total}`
+  /// `Question {current} of {total}`
   String questionNumberOf(int current, int total) {
     return Intl.message(
-      'Question $current/$total',
+      'Question $current of $total',
       name: 'questionNumberOf',
       desc: '',
       args: [current, total],
@@ -685,6 +685,26 @@ class S {
     return Intl.message(
       'Correct',
       name: 'correct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exam`
+  String get examTitle {
+    return Intl.message(
+      'Exam',
+      name: 'examTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loading questions...`
+  String get loadingQuestions {
+    return Intl.message(
+      'Loading questions...',
+      name: 'loadingQuestions',
       desc: '',
       args: [],
     );
